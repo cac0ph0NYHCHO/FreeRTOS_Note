@@ -79,4 +79,5 @@ void myTask2(void *arg)
 `vTaskDelete (任务句柄)`删除：彻底销毁任务，释放堆栈，无法恢复。
 
 #### TIPS
-<img width="936" height="683" alt="image" src="https://github.com/user-attachments/assets/84c2b08b-4eba-474c-9c12-8fbb9ecbf374" />
+<img width="931" height="617" alt="image" src="https://github.com/user-attachments/assets/2424f938-e864-4882-84df-ec9fc567f9e5" />
+
