@@ -12,7 +12,7 @@ void myTask(void *arg)
         //循环逻辑
         //... ...
         //阻塞延时，主动让出 CPU
-         vTaskDelay(500);
+		vTaskDelay(500);
     }
 }
 
