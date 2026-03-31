@@ -27,12 +27,8 @@ int main(void)
 }
 ```
 - `xTaskCreate(任务函数, 名称, 堆栈大小, 参数, 优先级, 句柄);`
-
-#### 任务句柄`myTaskHandler`是什么
 - `TaskHandle_t myTaskHandler;`:句柄是任务的唯一标识（身份证），用于 vTaskSuspend、vTaskResume、vTaskDelete 操控任务
-- 挂起任务（暂停）：`vTaskSuspend(myTaskHandler);`
-- 恢复任务：`vTaskResume(myTaskHandler);`
-- 删除任务：`vTaskDelete(myTaskHandler);`
+
 
 ### 2.多个任务
 - 多个任务while(1)+vTaskDelay
@@ -74,3 +70,10 @@ void myTask2(void *arg)
     }
 }
 ```
+
+### 5.任务挂起、恢复、删除
+- 通过任务句柄（TaskHandle_t），在程序中手动控制任务的运行状态。
+- 三个核心函数:  
+`vTaskSuspend (任务句柄)`挂起：任务暂停运行，冻结在当前位置。  
+`vTaskResume (任务句柄)`恢复：让被挂起的任务继续运行。  
+`vTaskDelete (任务句柄)`删除：彻底销毁任务，释放堆栈，无法恢复。
