@@ -1,7 +1,7 @@
 ### 1.单个任务
 - 代码结构演示
 ```c
-//句柄
+//任务句柄
 TaskHandle_t myTaskHandler;
 //任务函数
 void myTask(void *arg)
@@ -28,7 +28,7 @@ int main(void)
 ```
 - `xTaskCreate(任务函数, 名称, 堆栈大小, 参数, 优先级, 句柄);`
 
-#### 句柄`myTaskHandler`是什么
+#### 任务句柄`myTaskHandler`是什么
 - `TaskHandle_t myTaskHandler;`:句柄是任务的唯一标识（身份证），用于 vTaskSuspend、vTaskResume、vTaskDelete 操控任务
 - 挂起任务（暂停）：`vTaskSuspend(myTaskHandler);`
 - 恢复任务：`vTaskResume(myTaskHandler);`
