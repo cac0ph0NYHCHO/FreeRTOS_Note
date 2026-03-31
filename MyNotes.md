@@ -77,3 +77,6 @@ void myTask2(void *arg)
 `vTaskSuspend (任务句柄)`挂起：任务暂停运行，冻结在当前位置。  
 `vTaskResume (任务句柄)`恢复：让被挂起的任务继续运行。  
 `vTaskDelete (任务句柄)`删除：彻底销毁任务，释放堆栈，无法恢复。
+
+#### TIPS
+<img width="936" height="683" alt="image" src="https://github.com/user-attachments/assets/84c2b08b-4eba-474c-9c12-8fbb9ecbf374" />
