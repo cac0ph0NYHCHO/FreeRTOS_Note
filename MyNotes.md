@@ -21,7 +21,7 @@ int main(void)
   //初始化
   //... ...
   //创建任务
-	xTaskCreate(myTask, "myTask", 128, NULL, 2, &myTaskHandler);
+  xTaskCreate(myTask, "myTask", 128, NULL, 2, &myTaskHandler);
   //启动调度器，RTOS接管CPU
   vTaskStartScheduler();
 }
