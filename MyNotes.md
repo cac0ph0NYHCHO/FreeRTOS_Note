@@ -54,3 +54,23 @@ int main(void)
 保证任务循环总周期固定  
 不受任务内部执行时间影响，无漂移、高精度  
 适合：定时采集、PID、定时发送、高精度控制
+
+- 代码演示
+```c
+//vTaskDelayUntil 绝对延时
+void myTask2(void *arg)
+{
+    while(1)
+    {
+		// 保存上一次唤醒时间（只初始化一次）
+		TickType_t LastWakeTime;
+		// 获取当前系统时钟值
+		LastWakeTime = xTaskGetTickCount();
+		
+        GPIO_ResetBits(GPIOA, GPIO_Pin_1);
+        vTaskDelayUntil(&LastWakeTime, 500);
+        GPIO_SetBits(GPIOA, GPIO_Pin_1);
+        vTaskDelayUntil(&LastWakeTime, 500);
+    }
+}
+```
