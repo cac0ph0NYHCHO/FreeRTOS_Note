@@ -97,12 +97,29 @@ void myTask2(void *arg)
 - 二值信号量是什么？  
 可以理解为：只有 0 和 1 两种状态的 “标志位”
 - 核心 API（只记 4 个）  
-xSemaphoreCreateBinary() — 创建二值信号量  
-xSemaphoreGive(信号量句柄) — 释放 / 给出信号（置 1）  
-xSemaphoreTake(信号量句柄, 阻塞时间) — 拿取信号（置 0）  
-vSemaphoreDelete(信号量句柄) — 删除  
+`xSemaphoreCreateBinary()` — 创建二值信号量  
+`xSemaphoreGive(信号量句柄)` — 释放 / 给出信号（置 1）  
+`xSemaphoreTake(信号量句柄, 阻塞时间)` — 拿取信号（置 0）  
+`vSemaphoreDelete(信号量句柄)` — 删除  
 - 运行逻辑  
 Take：信号为 0 就阻塞等待  
 Give：信号变为 1，唤醒等待的任务  
 重点：只同步，不传数据，比队列更快、更省资源
   
+### 8.计数信号量（Counting Semaphore）
+- 计数信号量是什么？  
+可以理解为：可以有多个 “资源” 的二值信号量  
+二值信号量：0 或 1  
+计数信号量：0、1、2、3…N（可自定义最大值）  
+- 作用：  
+资源计数（比如可用缓冲区个数）  
+事件计数（发生多少次）  
+多任务同步限流  
+- 核心 API（就 3 个）  
+`xSemaphoreCreateCounting(最大值, 初始值)` — 创建  
+`xSemaphoreGive(句柄)` — 释放 +1  
+`xSemaphoreTake(句柄, 阻塞时间)` — 申请 -1  
+- 逻辑  
+Take：信号量 >0 才能成功，值减 1  
+Give：信号量 值加 1  
+为 0 时，Take 阻塞等待
