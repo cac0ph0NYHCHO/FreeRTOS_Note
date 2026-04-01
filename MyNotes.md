@@ -81,3 +81,14 @@ void myTask2(void *arg)
 #### TIPS
 <img width="931" height="617" alt="image" src="https://github.com/user-attachments/assets/2424f938-e864-4882-84df-ec9fc567f9e5" />
 
+### 6.队列 Queue（任务间通信）
+- 核心API（只记 4 个）：  
+`xQueueCreate(队列长度, 每个数据大小)` —— 创建队列  
+`xQueueSend(队列句柄, 数据指针, 阻塞时间)` —— 发数据  
+`xQueueReceive(队列句柄, 存放地址, 阻塞时间)` —— 收数据  
+`vQueueDelete(队列句柄)` —— 删除队列
+- 阻塞特性：  
+队列空时，Receive 会阻塞等待  
+队列满时，Send 会阻塞等待  
+阻塞时自动让出 CPU，不浪费资源  
+- 必须包含`#include "queue.h"`
