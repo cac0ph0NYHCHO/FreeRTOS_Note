@@ -92,3 +92,17 @@ void myTask2(void *arg)
 队列满时，Send 会阻塞等待  
 阻塞时自动让出 CPU，不浪费资源  
 - 必须包含`#include "queue.h"`
+
+### 7.二值信号量（Binary Semaphore）
+- 二值信号量是什么？  
+可以理解为：只有 0 和 1 两种状态的 “标志位”
+- 核心 API（只记 4 个）  
+xSemaphoreCreateBinary() — 创建二值信号量  
+xSemaphoreGive(信号量句柄) — 释放 / 给出信号（置 1）  
+xSemaphoreTake(信号量句柄, 阻塞时间) — 拿取信号（置 0）  
+vSemaphoreDelete(信号量句柄) — 删除  
+- 运行逻辑  
+Take：信号为 0 就阻塞等待  
+Give：信号变为 1，唤醒等待的任务  
+重点：只同步，不传数据，比队列更快、更省资源
+  
