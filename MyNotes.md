@@ -156,3 +156,50 @@ void myTask2(void *arg)
     - `pdTRUE`：取完清零（二值信号量模式）
     - `pdFALSE`：取完减一（计数信号量模式）
   - `vTaskNotifyWait(...)` 更高级（暂时不用记）
+
+### 11.临界区（Critical Section）
+- 临界区 = 不希望被打断的代码段
+  - 成对使用：ENTER / EXIT
+  - 时间越短越好，否则系统变卡
+- 适用场景：
+  - 操作多字节共享变量
+  - 操作SPI、I2C、Flash 连续时序
+  - 避免被高优先级抢占打乱
+- 两个 API（必须区分）
+  - `taskENTER_CRITICAL() / taskEXIT_CRITICAL()`:关调度器，禁止任务切换，但不关闭中断
+  - `taskENTER_CRITICAL_FROM_ISR() / taskEXIT_CRITICAL_FROM_ISR()`:中断里专用（暂时不用记）
+- 代码示例
+```c
+// 临界区使用格式（固定）
+taskENTER_CRITICAL();  // 进入临界区，禁止任务切换
+// 这里的代码不会被其他任务打断
+share_val = 123456;
+taskEXIT_CRITICAL();   // 退出临界区
+```
+
+### 12.空闲任务 & 空闲钩子（Idle Hook）
+- FreeRTOS 启动后自动创建空闲任务（优先级 0，最低）
+  - 所有任务都阻塞时，CPU 跑空闲任务
+  - 空闲钩子（Idle Hook）：空闲任务每次循环都会调用的函数
+- 用途：
+  - CPU 低功耗
+  - 后台轻量工作
+  - 内存回收
+ 
+### 13.软件定时器（Software Timer）
+- 不用硬件定时器，用 RTOS 模拟的定时器
+  - 可创建很多个（不限量）
+  - 定时时间到自动调用回调函数
+  - 一次性 / 自动重载（周期）
+- API
+  - `xTimerCreate()`: 创建
+  - `xTimerStart()`: 启动
+  - `xTimerStop()`: 停止
+ 
+### 14.任务堆栈 & 溢出
+- 每个任务有独立堆栈：128 → 128×4=512 字节
+   - 堆栈单位：Word（32 位）
+   - 128 单位 = 512 字节
+- 局部变量、函数嵌套都用堆栈
+  - 堆栈太小 → 硬件死机 / 重启
+  - 定义大数组、复杂函数要加大堆栈
